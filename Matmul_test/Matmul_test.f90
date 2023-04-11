@@ -27,9 +27,12 @@
      
      all_time1 = sys_time()
      print *, 'Hello, matmul'
+     
+     call print_compiler_version
+     
      print *, "         n", "      init","         parallel", "     no-parallel"
      
-     do nn = 500, 2500, 100
+     do nn = 500, 1000, 100
          s_time = sys_time()
          call cpu_time(cpu_t1) 
          CALL RANDOM_NUMBER(a)
@@ -62,5 +65,17 @@
      print *,"all time =", all_time2 - all_time1
 
     pause
+    
+    contains
+        subroutine print_compiler_version
+        use, intrinsic :: iso_fortran_env, only : compiler_version
+        use, intrinsic :: iso_fortran_env, only : compiler_options
+        implicit none
+           print '(4a)', &
+              'This file was compiled by ', &
+              compiler_version(),           &
+              ' using the options ',        &
+              compiler_options()
+        end subroutine print_compiler_version
     end program Matmul_test
 
