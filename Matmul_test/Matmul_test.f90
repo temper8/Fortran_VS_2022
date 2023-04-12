@@ -30,9 +30,9 @@
      
      call print_compiler_version
      
-     print *, "         n", "      init","         parallel", "     no-parallel"
+     print *, "         n", "      init","         no-parallel", "     parallel"
      
-     do nn = 500, 1000, 100
+     do nn = 500, 2500, 100
          s_time = sys_time()
          call cpu_time(cpu_t1) 
          CALL RANDOM_NUMBER(a)
@@ -64,7 +64,7 @@
      all_time2 = sys_time()
      print *,"all time =", all_time2 - all_time1
 
-    pause
+    !pause
     
     contains
         subroutine print_compiler_version
