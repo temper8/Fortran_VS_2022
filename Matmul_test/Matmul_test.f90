@@ -28,7 +28,7 @@
      all_time1 = sys_time()
      print *, 'Hello, matmul'
      
-     call print_compiler_version
+     call print_compiler_info
      
      print *, "         n", "      init","         no-parallel", "     parallel"
      
@@ -67,15 +67,15 @@
     !pause
     
     contains
-        subroutine print_compiler_version
+        subroutine print_compiler_info
         use, intrinsic :: iso_fortran_env, only : compiler_version
         use, intrinsic :: iso_fortran_env, only : compiler_options
         implicit none
-           print '(4a)', &
-              'This file was compiled by ', &
+           print '(4(a,/))', &
+              'This file was compiled by: ', &
               compiler_version(),           &
-              ' using the options ',        &
+              'using the options: ',        &
               compiler_options()
-        end subroutine print_compiler_version
+        end subroutine print_compiler_info
     end program Matmul_test
 
