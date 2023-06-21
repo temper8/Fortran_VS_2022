@@ -7,6 +7,8 @@ Project("{6989167D-11E4-40FE-8C1A-2192A86A7E90}") = "Console1", "Console1\Consol
 EndProject
 Project("{6989167D-11E4-40FE-8C1A-2192A86A7E90}") = "Matmul_test", "Matmul_test\Matmul_test.vfproj", "{944B2E57-81DE-4911-92F7-FAF2EE063B47}"
 EndProject
+Project("{6989167D-11E4-40FE-8C1A-2192A86A7E90}") = "Relativistic_fp2d", "relativistic_fp2d\Relativistic_fp2d.vfproj", "{83950F73-3F4B-4C65-8613-841051999351}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{944B2E57-81DE-4911-92F7-FAF2EE063B47}.Release|x64.Build.0 = Release|x64
 		{944B2E57-81DE-4911-92F7-FAF2EE063B47}.Release|x86.ActiveCfg = Release|Win32
 		{944B2E57-81DE-4911-92F7-FAF2EE063B47}.Release|x86.Build.0 = Release|Win32
+		{83950F73-3F4B-4C65-8613-841051999351}.Debug|x64.ActiveCfg = Debug|x64
+		{83950F73-3F4B-4C65-8613-841051999351}.Debug|x64.Build.0 = Debug|x64
+		{83950F73-3F4B-4C65-8613-841051999351}.Debug|x86.ActiveCfg = Debug|Win32
+		{83950F73-3F4B-4C65-8613-841051999351}.Debug|x86.Build.0 = Debug|Win32
+		{83950F73-3F4B-4C65-8613-841051999351}.Release|x64.ActiveCfg = Release|x64
+		{83950F73-3F4B-4C65-8613-841051999351}.Release|x64.Build.0 = Release|x64
+		{83950F73-3F4B-4C65-8613-841051999351}.Release|x86.ActiveCfg = Release|Win32
+		{83950F73-3F4B-4C65-8613-841051999351}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
