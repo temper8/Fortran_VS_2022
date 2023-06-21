@@ -27,7 +27,7 @@
 !C    pdens  electron density in 10**13/cm**3
       IMPLICIT REAL*8 (A-H,O-Z)
       INTEGER N1,N2,N1M,NITS,IFAIL,MODE
-      PARAMETER(N1=2001,N2=2000,N1M=N1,ntime=110000)
+      PARAMETER(N1=1001,N2=1000,N1M=N1,ntime=110000)
       REAL*8 A(N1M,N2),B(N1M,N2),C(N1M,N2),D(N1M,N2),E(N1M,N2),Q(N1M,N2)
       REAL*8 R(N1M,N2),T(N1M,N2),WRKSP1(N1M,N2),WRKSP2(N1M,N2),XP(N1),YMU(N2)
       REAL*8 DIFF(N1,N2),T1(N1),F(N1),AP1(N1),AP2(N1),AP3(N1),AB1(N1),AB2(N1)
@@ -445,13 +445,13 @@
       PMH=XP(I)-DP/2.
       PMH2=PMH*PMH
       GAMA=DSQRT(1.D0+XP(I)*XP(I)*BTH*BTH)
-	GAMAB=GAMA*RATIOB
+      GAMAB=GAMA*RATIOB
       V=XP(I)/GAMA
       GAMAPH=DSQRT(1.D0+PPH*PPH*BTH*BTH)
-	GAMAPHB=GAMAPH*RATIOB
+	  GAMAPHB=GAMAPH*RATIOB
       VPH=PPH/GAMAPH
       GAMAMH=DSQRT(1.D0+PMH*PMH*BTH*BTH)
-	GAMAMHB=GAMAMH*RATIOB
+	  GAMAMHB=GAMAMH*RATIOB
       VMH=PMH/GAMAMH
       XSIG=PPH*BTH
       SIGPH=S11ABF(XSIG,IIFAIL)
@@ -740,7 +740,7 @@
   4   CONTINUE
       DO 444 I=1,N1
       Q(I,1)=Q(I,3)
-	Q(I,N2)=Q(I,N2-2)
+	  Q(I,N2)=Q(I,N2-2)
       A(I,1)=0.
       E(I,N2)=0.
       B(I,1)=B(I,3)
@@ -867,11 +867,11 @@
                 Q(I,J)=T(I,J)*XP(I)*XP(I)/DT &
                    -AM(I,J)*T(I-1,J-1)-AP(I,J)*T(I+1,J-1) &
                     -EP(I,J)*T(I+1,J+1)-EM(I,J)*T(i-1,J+1)
-         ENDIF
+            ENDIF
 !Cmode 9 diagonales
-              IF (MODE.EQ.9) THEN
+            IF (MODE.EQ.9) THEN
                 Q(I,J)=T(I,J)*XP(I)*XP(I)/DT
-         ENDIF
+            ENDIF
 !C
 
  502  CONTINUE
@@ -917,69 +917,69 @@
       N2H=N2/2
       DO I=1,N1
       DO J=1,N2H
-      ABSM=DABS(YMU(J))
-      IF(ABSM.LT.TRAP) A(I,J)=A(I,N2+1-J)
-      IF(ABSM.LT.TRAP) B(I,J)=B(I,N2+1-J)
-      IF(ABSM.LT.TRAP) C(I,J)=C(I,N2+1-J)
-      IF(ABSM.LT.TRAP) D(I,J)=D(I,N2+1-J)
-      IF(ABSM.LT.TRAP) E(I,J)=E(I,N2+1-J)
-      IF(ABSM.LT.TRAP) Q(I,J)=Q(I,N2+1-J)
-      IF(ABSM.LT.TRAP) AM(I,J)=AM(I,N2+1-J)
-      IF(ABSM.LT.TRAP) AP(I,J)=AP(I,N2+1-J)
-      IF(ABSM.LT.TRAP) EM(I,J)=EM(I,N2+1-J)
-      IF(ABSM.LT.TRAP) EP(I,J)=EP(I,N2+1-J)
+          ABSM=DABS(YMU(J))
+          IF(ABSM.LT.TRAP) A(I,J)=A(I,N2+1-J)
+          IF(ABSM.LT.TRAP) B(I,J)=B(I,N2+1-J)
+          IF(ABSM.LT.TRAP) C(I,J)=C(I,N2+1-J)
+          IF(ABSM.LT.TRAP) D(I,J)=D(I,N2+1-J)
+          IF(ABSM.LT.TRAP) E(I,J)=E(I,N2+1-J)
+          IF(ABSM.LT.TRAP) Q(I,J)=Q(I,N2+1-J)
+          IF(ABSM.LT.TRAP) AM(I,J)=AM(I,N2+1-J)
+          IF(ABSM.LT.TRAP) AP(I,J)=AP(I,N2+1-J)
+          IF(ABSM.LT.TRAP) EM(I,J)=EM(I,N2+1-J)
+          IF(ABSM.LT.TRAP) EP(I,J)=EP(I,N2+1-J)
       ENDDO
       ENDDO
  1701 CONTINUE
       DO 80 J=2,N2M1
       DO 60 I=2,N1-1
       IF (MODE.EQ.5) THEN
-!Cmode 5 diagonales
-      IF(C(I,J).NE.0.D0) THEN
-      R(I,J)=Q(I,J)-A(I,J)*T(I,J-1)-B(I,J)*T(I-1,J)-C(I,J)*T(I,J)- &
-      D(I,J)*T(I+1,J)-E(I,J)*T(I,J+1)-COLLF*XP(I)*XP(I)*T(I,J)
-      ELSE
-      R(I,J)=Q(I,J)-T(I,J)*XP(I)*XP(I)/DT
-      END IF
+          !Cmode 5 diagonales
+          IF(C(I,J).NE.0.D0) THEN
+              R(I,J)=Q(I,J)-A(I,J)*T(I,J-1)-B(I,J)*T(I-1,J)-C(I,J)*T(I,J)- &
+              D(I,J)*T(I+1,J)-E(I,J)*T(I,J+1)-COLLF*XP(I)*XP(I)*T(I,J)
+          ELSE
+            R(I,J)=Q(I,J)-T(I,J)*XP(I)*XP(I)/DT
+          END IF
       END IF
       IF (MODE.EQ.9) THEN
-!Cmode 9 diagonales
-      IF(C(I,J).NE.0.D0) THEN
-      R(I,J)=Q(I,J)-A(I,J)*T(I,J-1)-B(I,J)*T(I-1,J)-C(I,J)*T(I,J)- &
-      D(I,J)*T(I+1,J)-E(I,J)*T(I,J+1) &
-      -COLLF*XP(I)*XP(I)*T(I,J) &
-      -AM(I,J)*T(I-1,J-1)-AP(I,J)*T(I+1,J-1)-EM(I,J)*T(I-1,J+1) &
-      -EP(I,J)*T(I+1,J+1)
-      ELSE
-      R(I,J)=Q(I,J)-T(I,J)*XP(I)*XP(I)/DT
-      END IF
+          !Cmode 9 diagonales
+          IF(C(I,J).NE.0.D0) THEN
+              R(I,J)=Q(I,J)-A(I,J)*T(I,J-1)-B(I,J)*T(I-1,J)-C(I,J)*T(I,J)- &
+              D(I,J)*T(I+1,J)-E(I,J)*T(I,J+1) &
+              -COLLF*XP(I)*XP(I)*T(I,J) &
+              -AM(I,J)*T(I-1,J-1)-AP(I,J)*T(I+1,J-1)-EM(I,J)*T(I-1,J+1) &
+              -EP(I,J)*T(I+1,J+1)
+          ELSE
+              R(I,J)=Q(I,J)-T(I,J)*XP(I)*XP(I)/DT
+          END IF
       END IF
   60  CONTINUE
   80  CONTINUE
       DO 81 I=1,N1M1
-      IF(C(I,N2).NE.0.0D0) THEN
-      R(I,1)=R(I,3)
-      R(I,N2)=R(I,N2-2)
-      ELSE
-      R(I,N2)=Q(I,N2)-T(I,N2)*XP(I)*XP(I)/DT
-      END IF
+          IF(C(I,N2).NE.0.0D0) THEN
+              R(I,1)=R(I,3)
+              R(I,N2)=R(I,N2-2)
+          ELSE
+              R(I,N2)=Q(I,N2)-T(I,N2)*XP(I)*XP(I)/DT
+          END IF
   81  CONTINUE
   55  FORMAT(2I10,2F16.6)
       DO 500 J=1,N2
-      Q(N1,J)=T(N1,J)*XP(N1)*XP(N1)/DT
-      Q(1,J)=0.
-      R(1,J)=0.
-      R(N1,J)=0.
+          Q(N1,J)=T(N1,J)*XP(N1)*XP(N1)/DT
+          Q(1,J)=0.
+          R(1,J)=0.
+          R(N1,J)=0.
  500  CONTINUE
       IFAIL=0
 !C    CALL D03UAF(N1,N2,N1M,A,B,C,D,E,APARAM,IT,R,WRKSP1,WRKSP2,IFAIL)
 	  IF (MODE.EQ.5) THEN
-	  ALPHAMAX = 1.- 2.*APARAM/(N1M1*N1M1+N2M1*N2M1)
-      call sip5d(N1,N2,A,B,C,D,E,R,IT,ALPHAMAX,WRKSP1,WRKSP2)
+	      ALPHAMAX = 1.- 2.*APARAM/(N1M1*N1M1+N2M1*N2M1)
+          call sip5d(N1,N2,A,B,C,D,E,R,IT,ALPHAMAX,WRKSP1,WRKSP2)
       END IF
       IF (MODE.EQ.9) THEN
-	  ALPHAMAX = 1.- 2.*APARAM/(N1M1*N1M1+N2M1*N2M1)
-      call sip9d(N1,N2,AM,A,AP,B,C,D,EM,E,EP,R,IT,ALPHAMAX,WRKSP1,WRKSP2,WRKSP3,WRKSP4)
+	      ALPHAMAX = 1.- 2.*APARAM/(N1M1*N1M1+N2M1*N2M1)
+          call sip9d(N1,N2,AM,A,AP,B,C,D,EM,E,EP,R,IT,ALPHAMAX,WRKSP1,WRKSP2,WRKSP3,WRKSP4)
       ENDIF
       MPRINT=MPRINT+1
       IT=IT+1
@@ -988,11 +988,11 @@
 !C    DT=DTT+(IT-1)*DTT/NITS
       DO 6 J=1,N2
       DO 6 I=1,N1
-      T(I,J)=T(I,J)+R(I,J)
+        T(I,J)=T(I,J)+R(I,J)
    6  CONTINUE
       DO 501 I=1,N1
-      T(I,1)=T(I,3)
- 501  T(I,N2)=T(I,N2-2)
+        T(I,1)=T(I,3)
+ 501    T(I,N2)=T(I,N2-2)
       IF(TRAPO.EQ.0.0D0) GO TO 1700
       N2H=N2/2
       DO I=1,N1
