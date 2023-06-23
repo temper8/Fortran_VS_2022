@@ -736,48 +736,48 @@
      !Cparts thereof have been computed
 
   4   CONTINUE
-      DO 444 I=1,N1
-      Q(I,1)=Q(I,3)
-	  Q(I,N2)=Q(I,N2-2)
-      A(I,1)=0.
-      E(I,N2)=0.
-      B(I,1)=B(I,3)
-      C(I,1)=C(I,3)
-      C(I,N2)=C(I,N2-2)
-      D(I,1)=D(I,3)
-      D(I,N2)=D(I,N2-2)
-      A(I,N2)=A(I,N2-2)
-      E(I,1)=E(I,3)
-      !C9 diagonales
-      AM(I,1) = AM(I,3)
-      AP(I,1) = AP(I,3)
-      EM(I,1) = EM(I,3)
-      EP(I,1) = EP(I,3)
-      AM(I,N2) = AM(I,N2-2)
-      AP(I,N2) = AP(I,N2-2)
-      EM(I,N2) = EM(I,N2-2)
-      EP(I,N2) = EP(I,N2-2)
- 444  CONTINUE
-      DO 445 J=1,N2
-!Cla ligne suivante a ete ajoute pour la condition aux limites au centre
-      C(1,J)=1.
-      D(1,J)=-F(1)/F(2)
- 445  CONTINUE
-!C    IT=1
-!C    FOR LHCD ALONE (NO FAST WAVE), IF DIFF(I,J) AND EPS ARE CONSTANT
-!C    START LOOP HERE
+      do I=1,N1
+          Q(I,1)=Q(I,3)
+	      Q(I,N2)=Q(I,N2-2)
+          A(I,1)=0.
+          E(I,N2)=0.
+          B(I,1)=B(I,3)
+          C(I,1)=C(I,3)
+          C(I,N2)=C(I,N2-2)
+          D(I,1)=D(I,3)
+          D(I,N2)=D(I,N2-2)
+          A(I,N2)=A(I,N2-2)
+          E(I,1)=E(I,3)
+          !C9 diagonales
+          AM(I,1) = AM(I,3)
+          AP(I,1) = AP(I,3)
+          EM(I,1) = EM(I,3)
+          EP(I,1) = EP(I,3)
+          AM(I,N2) = AM(I,N2-2)
+          AP(I,N2) = AP(I,N2-2)
+          EM(I,N2) = EM(I,N2-2)
+          EP(I,N2) = EP(I,N2-2)
+      enddo
+      do J=1,N2
+          !la ligne suivante a ete ajoute pour la condition aux limites au centre
+          C(1,J)=1.
+          D(1,J)=-F(1)/F(2)
+      enddo
+      !   IT=1
+      !   FOR LHCD ALONE (NO FAST WAVE), IF DIFF(I,J) AND EPS ARE CONSTANT
+      !   START LOOP HERE
  30   CONTINUE
       DINT=0.
       DINT2=0.
-      DO 151 I=1,N1
-      DINT=0.
-      DO 150 J=2,N2M1
-      DINT=DINT+T(I,J)*YMU(J)
-      DINT2=DINT2+T(I,J)*(3.*YMU(J)*YMU(J)-1.)
- 150  CONTINUE
-      T2(I)=DINT2*DMU*5./4.
-      T1(I)=DINT*DMU*3./2.
- 151  CONTINUE
+      do I=1,N1
+          DINT=0.
+          do J=2,N2M1
+              DINT=DINT+T(I,J)*YMU(J)
+              DINT2=DINT2+T(I,J)*(3.*YMU(J)*YMU(J)-1.)
+          enddo
+          T2(I)=DINT2*DMU*5./4.
+          T1(I)=DINT*DMU*3./2.
+      enddo
       AB1(1)=0.
       AB2(1)=0.
       AB3(1)=0.
@@ -798,119 +798,119 @@
       AB8(2)=0.
       AB9(2)=0.
       AB10(2)=0.
-      DO 152 I=3,N1
-      XP2=XP(I)*XP(I)
-      GAMA=DSQRT(1.+XP2*BTH*BTH)
-      V=XP(I)/GAMA
-      GAMA1=DSQRT(1.+XP(I-1)*XP(I-1)*BTH*BTH)
-      V1=XP(I-1)/GAMA1
-      AB1(I)=AB1(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi
+      do I=3,N1
+          XP2=XP(I)*XP(I)
+          GAMA=DSQRT(1.+XP2*BTH*BTH)
+          V=XP(I)/GAMA
+          GAMA1=DSQRT(1.+XP(I-1)*XP(I-1)*BTH*BTH)
+          V1=XP(I-1)/GAMA1
+          AB1(I)=AB1(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi
 	  
-      AB2(I)=AB2(I-1)+0.5*DP*T1(I)*(XP(I)**5)*4.*pi/GAMA+0.5*DP*T1(I-1)*(XP(I-1)**5)*4.*pi/GAMA1
+          AB2(I)=AB2(I-1)+0.5*DP*T1(I)*(XP(I)**5)*4.*pi/GAMA+0.5*DP*T1(I-1)*(XP(I-1)**5)*4.*pi/GAMA1
 	  
-      AB3(I)=AB3(I-1)+0.5*DP*T1(I)*XP(I)*4.*pi*(GAMA-SIG(I)/(BTH*XP(I)))/GAMA &
-      +0.5*DP*T1(I-1)*XP(I-1)*4.*pi*(GAMA1-SIG(I-1)/(BTH*XP(I-1)))/GAMA1
-      AB4(I)=AB4(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi/GAMA+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi/GAMA1
+          AB3(I)=AB3(I-1)+0.5*DP*T1(I)*XP(I)*4.*pi*(GAMA-SIG(I)/(BTH*XP(I)))/GAMA &
+          +0.5*DP*T1(I-1)*XP(I-1)*4.*pi*(GAMA1-SIG(I-1)/(BTH*XP(I-1)))/GAMA1
+          AB4(I)=AB4(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi/GAMA+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi/GAMA1
 	  
-      AB5(I)=AB5(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi*(GAMA-SIG(I)/(BTH*XP(I))-2.*GAMA*BTH*BTH*XP(I)*XP(I)/3.) &
-      /(GAMA*BTH*BTH*XP(I)*XP(I))+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi*(GAMA1-SIG(I-1) &
-      /(BTH*XP(I-1))-2.*GAMA1*BTH*BTH*XP(I-1)*XP(I-1)/3.)/(GAMA1*BTH*BTH*XP(I-1)*XP(I-1))
+          AB5(I)=AB5(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi*(GAMA-SIG(I)/(BTH*XP(I))-2.*GAMA*BTH*BTH*XP(I)*XP(I)/3.) &
+          /(GAMA*BTH*BTH*XP(I)*XP(I))+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi*(GAMA1-SIG(I-1) &
+          /(BTH*XP(I-1))-2.*GAMA1*BTH*BTH*XP(I-1)*XP(I-1)/3.)/(GAMA1*BTH*BTH*XP(I-1)*XP(I-1))
 	  
-      AB6(I)=AB6(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi &
-      *(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I)) &
-      +BTH*XP(I))/(6.*GAMA*BTH*XP(I)) &
-      +0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi &
-      *(-3.*GAMA1*SIG(I-1)/(BTH*BTH*XP(I-1)*XP(I-1))+3./(BTH*XP(I-1))+BTH*XP(I-1))/(6.*GAMA1*BTH*XP(I-1))
+          AB6(I)=AB6(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi &
+          *(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I)) &
+          +BTH*XP(I))/(6.*GAMA*BTH*XP(I)) &
+          +0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi &
+          *(-3.*GAMA1*SIG(I-1)/(BTH*BTH*XP(I-1)*XP(I-1))+3./(BTH*XP(I-1))+BTH*XP(I-1))/(6.*GAMA1*BTH*XP(I-1))
 	  
-      AB8(I)=AB8(I-1)+.5*DP*T1(I)*4.*pi*(XP(I)**3)*(-3.*GAMA+SIG(I) &
-      *(3./(BTH*XP(I))+2.*BTH*XP(I)))/(2.*GAMA*BTH*BTH*XP(I)*XP(I)) &
-      +0.5*DP*T1(I-1)*4.*pi*(XP(I-1)**3)*(-3.*GAMA1+SIG(I-1)*(3./  &
-      (BTH*XP(I-1))+2.*BTH*XP(I-1)))/(2.*GAMA1*BTH*BTH*XP(I-1)*XP(I-1))
+          AB8(I)=AB8(I-1)+.5*DP*T1(I)*4.*pi*(XP(I)**3)*(-3.*GAMA+SIG(I) &
+          *(3./(BTH*XP(I))+2.*BTH*XP(I)))/(2.*GAMA*BTH*BTH*XP(I)*XP(I)) &
+          +0.5*DP*T1(I-1)*4.*pi*(XP(I-1)**3)*(-3.*GAMA1+SIG(I-1)*(3./  &
+          (BTH*XP(I-1))+2.*BTH*XP(I-1)))/(2.*GAMA1*BTH*BTH*XP(I-1)*XP(I-1))
 	  
-      AB7(I)=AB7(I-1)+.5*DP*T1(I)*4.*pi*(XP(I)**3)*(-3.*GAMA*SIG(I) &
-      /(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I)-2.*(BTH*XP(I))**3/5.)/(2.*GAMA*BTH*BTH*BTH*XP(I)) &
-      +.5*DP*T1(I-1)*4.*pi*(XP(I-1)**3)*(-3.*GAMA1*SIG(I-1) &
-      /(BTH*BTH*XP(I-1)*XP(I-1))+3./(BTH*XP(I-1))+BTH*XP(I-1)-2.*(BTH*XP(I-1))**3/5.)/(2.*GAMA1*BTH*BTH*BTH*XP(I-1))
+          AB7(I)=AB7(I-1)+.5*DP*T1(I)*4.*pi*(XP(I)**3)*(-3.*GAMA*SIG(I) &
+          /(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I)-2.*(BTH*XP(I))**3/5.)/(2.*GAMA*BTH*BTH*BTH*XP(I)) &
+          +.5*DP*T1(I-1)*4.*pi*(XP(I-1)**3)*(-3.*GAMA1*SIG(I-1) &
+          /(BTH*BTH*XP(I-1)*XP(I-1))+3./(BTH*XP(I-1))+BTH*XP(I-1)-2.*(BTH*XP(I-1))**3/5.)/(2.*GAMA1*BTH*BTH*BTH*XP(I-1))
 	  
-      AB9(I)=AB9(I-1)+0.5*DP*T1(I)*XP(I)*4.*pi*(GAMA*SIG(I)/(BTH*XP(I))-1.)/GAMA &
-      +0.5*DP*T1(I-1)*XP(I-1)*4.*pi*(GAMA1*SIG(I-1)/(BTH*XP(I-1))-1.)/GAMA1
+          AB9(I)=AB9(I-1)+0.5*DP*T1(I)*XP(I)*4.*pi*(GAMA*SIG(I)/(BTH*XP(I))-1.)/GAMA &
+          +0.5*DP*T1(I-1)*XP(I-1)*4.*pi*(GAMA1*SIG(I-1)/(BTH*XP(I-1))-1.)/GAMA1
 	  
-      AB10(I)=AB10(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi*(GAMA*SIG(I) &
-      *(15./(BTH*XP(I))**2+6.)-15./(BTH*XP(I))-11.*BTH*XP(I))/ &
-      (12.*GAMA*BTH*BTH*BTH*XP(I))+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi*(GAMA1*SIG(I-1) &
-      *(15./(BTH*XP(I-1))**2+6.)-15./(BTH*XP(I-1))-11.*BTH*XP(I-1))/ &
-      (12.*GAMA1*BTH*BTH*BTH*XP(I-1))
- 152  CONTINUE
+          AB10(I)=AB10(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi*(GAMA*SIG(I) &
+          *(15./(BTH*XP(I))**2+6.)-15./(BTH*XP(I))-11.*BTH*XP(I))/ &
+          (12.*GAMA*BTH*BTH*BTH*XP(I))+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi*(GAMA1*SIG(I-1) &
+          *(15./(BTH*XP(I-1))**2+6.)-15./(BTH*XP(I-1))-11.*BTH*XP(I-1))/ &
+          (12.*GAMA1*BTH*BTH*BTH*XP(I-1))
+      enddo
       AB11(N1)=0.
       AB12(N1)=0.
       AB13(N1)=0.
       AB14(N1)=0.
-      DO 155 I=1,N1M1
-      K=N1-I
-      XP2=XP(K)*XP(K)
-      GAMA=DSQRT(1.+XP2*BTH*BTH)
-      GAMA1=DSQRT(1.+XP(K+1)*XP(K+1)*BTH*BTH)
-      AB11(K)=AB11(K+1)+0.5*DP*T1(K)*4.*pi/GAMA+0.5*DP*T1(K+1)*4.*pi/GAMA1
+      do I=1,N1M1
+          K=N1-I
+          XP2=XP(K)*XP(K)
+          GAMA=DSQRT(1.+XP2*BTH*BTH)
+          GAMA1=DSQRT(1.+XP(K+1)*XP(K+1)*BTH*BTH)
+          AB11(K)=AB11(K+1)+0.5*DP*T1(K)*4.*pi/GAMA+0.5*DP*T1(K+1)*4.*pi/GAMA1
 	  
-      AB12(K)=AB12(K+1)+0.5*DP*T1(K)*4.*pi+0.5*DP*T1(K+1)*4.*pi
+          AB12(K)=AB12(K+1)+0.5*DP*T1(K)*4.*pi+0.5*DP*T1(K+1)*4.*pi
 	  
-      AB13(K)=AB13(K+1)+0.5*DP*T1(K)*(XP(K)**2)*4.*pi+0.5*DP*T1(K+1)*(XP(K+1)**2)*4.*pi
+          AB13(K)=AB13(K+1)+0.5*DP*T1(K)*(XP(K)**2)*4.*pi+0.5*DP*T1(K+1)*(XP(K+1)**2)*4.*pi
 	  
-      AB14(K)=AB14(K+1)+0.5*DP*T1(K)*(XP(K)**2)*4.*pi/GAMA+.5*DP*T1(K+1)*(XP(K+1)**2)*4.*pi/GAMA1
- 155  CONTINUE
-      DO 502 I=2,N1M1
-      DO 502 J=2,N2M1
-!Cmode 5 diagonales
+          AB14(K)=AB14(K+1)+0.5*DP*T1(K)*(XP(K)**2)*4.*pi/GAMA+.5*DP*T1(K+1)*(XP(K+1)**2)*4.*pi/GAMA1
+      enddo
+      do I=2,N1M1
+        do J=2,N2M1
+            !Cmode 5 diagonales
             IF(MODE.EQ.5) THEN
                 Q(I,J)=T(I,J)*XP(I)*XP(I)/DT &
-                   -AM(I,J)*T(I-1,J-1)-AP(I,J)*T(I+1,J-1) &
+                -AM(I,J)*T(I-1,J-1)-AP(I,J)*T(I+1,J-1) &
                     -EP(I,J)*T(I+1,J+1)-EM(I,J)*T(i-1,J+1)
             ENDIF
-!Cmode 9 diagonales
+            !Cmode 9 diagonales
             IF (MODE.EQ.9) THEN
                 Q(I,J)=T(I,J)*XP(I)*XP(I)/DT
             ENDIF
-!C
-
- 502  CONTINUE
-      DO 503 I=2,N1M1
-      GAMA=DSQRT(1.D0+XP(I)*XP(I)*BTH*BTH)
-      V=XP(I)/GAMA
-	  CNT=-2.*AB1(I)*GAMA/3.+AB2(I)*GAMA/5.+AB3(I)+AB4(I)/3. &
-      +(-AB5(I)+AB7(I)+AB8(I)-AB10(I))*GAMA
-      CNT=CNT+AB6(I)*(GAMA*XP(I)*XP(I)-5.)+AB9(I)*XP(I)*XP(I)
-      CNT=CNT/(GAMA*XP(I)*XP(I))
-      CNT1=+AB11(I)*(1./3.+(GAMA-SIG(I)/(BTH*XP(I)))/(XP(I)*XP(I)) &
-      -5.*(-3.*GAMA*SIG(I) &
-      /(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I))/(6.*BTH*XP(I))) 
-      CNT1=CNT1+AB12(I)*(-2.*GAMA/3.+XP(I)*XP(I)/5.-(GAMA-SIG(I) &
-      /(BTH*XP(I))-2.*GAMA*BTH*BTH*XP(I)*XP(I)/3.)/(BTH*BTH*XP(I) &
-      *XP(I)))
-      CNT1=CNT1+AB12(I)*(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3. &
-      /(BTH*XP(I))+BTH*XP(I)-2.*(BTH*XP(I))**3/5.)/(2.*BTH*BTH*BTH*XP(I))
-      CNT1=CNT1+AB12(I)*(-3.*GAMA+SIG(I)*(3./(BTH*XP(I))+2.*BTH*XP(I)))/(2.*BTH*BTH*XP(I)*XP(I))
-      CNT1=CNT1-AB12(I)*(GAMA*SIG(I)*(15./(BTH*BTH*XP(I)*XP(I))+6.)-15./(BTH*XP(I))-11.*BTH*XP(I))/(12.*BTH*XP(I)*BTH*BTH)
-      CNT1=CNT1+AB13(I)*(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I))/(6.*BTH*XP(I))
-      CNT1=CNT1+AB14(I)*(GAMA*SIG(I)/(BTH*XP(I))-1.)/(XP(I)*XP(I))
-      CNT1=CNT1*XP(I)/GAMA
-      CNT=(CNT*F(I)+CNT1*F(I))+4.*pi*F(I)*T1(I)/GAMA
-      CNT=CNT*XP(I)*XP(I)
-      DO 503 J=2,N2M1
-      Q(I,J)=Q(I,J)+EJ0(J)*CNT*YMU(J)*TRUNC
- 503  CONTINUE
-      DO 513 I=1,N1
-      Q(I,1)=Q(I,3)
-      Q(I,N2)=Q(I,N2-2)
-!C9 diagonales
-      AM(I,1) = AM(I,3)
-      AP(I,1) = AP(I,3)
-      EM(I,1) = EM(I,3)
-      EP(I,1) = EP(I,3)
-      AM(I,N2) = AM(I,N2-2)
-      AP(I,N2) = AP(I,N2-2)
-      EM(I,N2) = EM(I,N2-2)
-      EP(I,N2) = EP(I,N2-2)
- 513  CONTINUE
+        enddo
+      enddo
+      do I=2,N1M1
+          GAMA=DSQRT(1.D0+XP(I)*XP(I)*BTH*BTH)
+          V=XP(I)/GAMA
+	      CNT=-2.*AB1(I)*GAMA/3.+AB2(I)*GAMA/5.+AB3(I)+AB4(I)/3. &
+          +(-AB5(I)+AB7(I)+AB8(I)-AB10(I))*GAMA
+          CNT=CNT+AB6(I)*(GAMA*XP(I)*XP(I)-5.)+AB9(I)*XP(I)*XP(I)
+          CNT=CNT/(GAMA*XP(I)*XP(I))
+          CNT1=+AB11(I)*(1./3.+(GAMA-SIG(I)/(BTH*XP(I)))/(XP(I)*XP(I)) &
+          -5.*(-3.*GAMA*SIG(I) &
+          /(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I))/(6.*BTH*XP(I))) 
+          CNT1=CNT1+AB12(I)*(-2.*GAMA/3.+XP(I)*XP(I)/5.-(GAMA-SIG(I) &
+          /(BTH*XP(I))-2.*GAMA*BTH*BTH*XP(I)*XP(I)/3.)/(BTH*BTH*XP(I) &
+          *XP(I)))
+          CNT1=CNT1+AB12(I)*(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3. &
+          /(BTH*XP(I))+BTH*XP(I)-2.*(BTH*XP(I))**3/5.)/(2.*BTH*BTH*BTH*XP(I))
+          CNT1=CNT1+AB12(I)*(-3.*GAMA+SIG(I)*(3./(BTH*XP(I))+2.*BTH*XP(I)))/(2.*BTH*BTH*XP(I)*XP(I))
+          CNT1=CNT1-AB12(I)*(GAMA*SIG(I)*(15./(BTH*BTH*XP(I)*XP(I))+6.)-15./(BTH*XP(I))-11.*BTH*XP(I))/(12.*BTH*XP(I)*BTH*BTH)
+          CNT1=CNT1+AB13(I)*(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I))/(6.*BTH*XP(I))
+          CNT1=CNT1+AB14(I)*(GAMA*SIG(I)/(BTH*XP(I))-1.)/(XP(I)*XP(I))
+          CNT1=CNT1*XP(I)/GAMA
+          CNT=(CNT*F(I)+CNT1*F(I))+4.*pi*F(I)*T1(I)/GAMA
+          CNT=CNT*XP(I)*XP(I)
+          do J=2,N2M1
+            Q(I,J)=Q(I,J)+EJ0(J)*CNT*YMU(J)*TRUNC
+          enddo
+      enddo
+      do I=1,N1
+          Q(I,1)=Q(I,3)
+          Q(I,N2)=Q(I,N2-2)
+          !C9 diagonales
+          AM(I,1) = AM(I,3)
+          AP(I,1) = AP(I,3)
+          EM(I,1) = EM(I,3)
+          EP(I,1) = EP(I,3)
+          AM(I,N2) = AM(I,N2-2)
+          AP(I,N2) = AP(I,N2-2)
+          EM(I,N2) = EM(I,N2-2)
+          EP(I,N2) = EP(I,N2-2)
+      enddo
       IF(TRAPO.EQ.0.0D0) GO TO 1701
       N2H=N2/2
       DO I=1,N1
