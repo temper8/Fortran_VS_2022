@@ -473,17 +473,17 @@
       IF(J.EQ.N2M1) YPH=YMU(N2M1)-DMU/2.
       DYPH=(1.D0-RATIOB*(1.D0-YPH*YPH))
       IF(DYPH.GT.0.0.AND.DYPH.LE.1.) THEN
-      DYPH=DSQRT(DYPH)
+        DYPH=DSQRT(DYPH)
       ELSE
-      DYPH=0.
+        DYPH=0.
       ENDIF
       YMH=YMU(J)-DMU/2.
       IF(J.EQ.2) YMH=YMU(2)+DMU/2.
       DYMH=(1.D0-RATIOB*(1.D0-YMH*YMH))
       IF(DYMH.GT.0.0.AND.DYMH.LE.1.) THEN
-      DYMH=DSQRT(DYMH)
+        DYMH=DSQRT(DYMH)
       ELSE
-      DYMH=0.
+        DYMH=0.
       ENDIF
       FBI=1.+EJ2(J)
       EPS=EEPS*EJ0(J)
@@ -492,47 +492,47 @@
       FBI2=1.+0.5*(EJ2(J)+EJ2(J+1))
       EPS2=EEPS*(EJ0(J)+EJ0(J+1))*0.5
       IF(DYMH.NE.0.) THEN
-      WW=-EPS1*DMU*XP(I)/(BI(I)*FBI1+.5*(DIFF(I,J)+DIFF(I,J-1))*(1.- &
-      YMH*YMH)+0.5*(DCY(I,J)+DCY(I,J-1))*(YMH*GAMAB-(GAMAB-OMC)/YMH)**2 &
-!C    2/(GAMA*DABS(YMH)*XP(I)))
-     /(GAMAB*DYMH*XP(I)))
+        WW=-EPS1*DMU*XP(I)/(BI(I)*FBI1+.5*(DIFF(I,J)+DIFF(I,J-1))*(1.- &
+        YMH*YMH)+0.5*(DCY(I,J)+DCY(I,J-1))*(YMH*GAMAB-(GAMAB-OMC)/YMH)**2 &
+        !C    2/(GAMA*DABS(YMH)*XP(I)))
+        /(GAMAB*DYMH*XP(I)))
       ELSE
-      WW=-EPS1*DMU*XP(I)/(BI(I)*FBI1+.5*(DIFF(I,J)+DIFF(I,J-1))*(1.-YMH*YMH))
+        WW=-EPS1*DMU*XP(I)/(BI(I)*FBI1+.5*(DIFF(I,J)+DIFF(I,J-1))*(1.-YMH*YMH))
       ENDIF
       IF(WW.NE.0.D0) THEN
-      DELJ1=1./WW-1./(DEXP(WW)-1.)
+        DELJ1=1./WW-1./(DEXP(WW)-1.)
       ELSE
-      DELJ1=0.5
+        DELJ1=0.5
       END IF
       IF(DYPH.NE.0.) THEN
-      WW=-EPS2*DMU*XP(I)/(BI(I)*FBI2+.5*(DIFF(I,J)+DIFF(I,J+1))*(1.- &
-      YPH*YPH)+0.5*(DCY(I,J)+DCY(I,J+1))*(YPH*GAMAB-(GAMAB-OMC)/YPH)**2 &
-!C    2/(GAMA*DABS(YPH)*XP(I)))
-      /(GAMAB*DYPH*XP(I)))
+        WW=-EPS2*DMU*XP(I)/(BI(I)*FBI2+.5*(DIFF(I,J)+DIFF(I,J+1))*(1.- &
+        YPH*YPH)+0.5*(DCY(I,J)+DCY(I,J+1))*(YPH*GAMAB-(GAMAB-OMC)/YPH)**2 &
+        !C    2/(GAMA*DABS(YPH)*XP(I)))
+        /(GAMAB*DYPH*XP(I)))
       ELSE
-      WW=-EPS2*DMU*XP(I)/(BI(I)*FBI2+.5*(DIFF(I,J)+DIFF(I,J+1))* &
-      (1.-YPH*YPH))
+        WW=-EPS2*DMU*XP(I)/(BI(I)*FBI2+.5*(DIFF(I,J)+DIFF(I,J+1))* &
+        (1.-YPH*YPH))
       ENDIF
       IF(WW.NE.0.D0) THEN
-      DELJ2=1./WW-1./(DEXP(WW)-1.)
+        DELJ2=1./WW-1./(DEXP(WW)-1.)
       ELSE
-      DELJ2=0.5
+        DELJ2=0.5
       END IF
       BF=FPH(I)-EPS*YMU(J)
       IF(DABMU.NE.0) THEN
-      CF=APH(I)+0.5*(DIFF(I,J)+DIFF(I+1,J))*YMU(J)*YMU(J) &
-      +0.5*(DCY(I,J)+DCY(I+1,J))*GAMAPHB*(1.-YMU(J)*YMU(J))/(PPH*DABMU)
+        CF=APH(I)+0.5*(DIFF(I,J)+DIFF(I+1,J))*YMU(J)*YMU(J) &
+        +0.5*(DCY(I,J)+DCY(I+1,J))*GAMAPHB*(1.-YMU(J)*YMU(J))/(PPH*DABMU)
       ELSE
-      CF=APH(I)+0.5*(DIFF(I,J)+DIFF(I+1,J))*YMU(J)*YMU(J)
+        CF=APH(I)+0.5*(DIFF(I,J)+DIFF(I+1,J))*YMU(J)*YMU(J)
       ENDIF
       WW=DP*BF/CF
       DELP=1./WW-1./(DEXP(WW)-1.)
       BF=FMH(I)-EPS*YMU(J)
       IF(DABMU.NE.0.) THEN
-      CF=AMH(I)+0.5*(DIFF(I,J)+DIFF(I-1,J))*YMU(J)*YMU(J) &
-      +0.5*(DCY(I,J)+DCY(I-1,J))*GAMAMHB*(1.-YMU(J)*YMU(J))/(PMH*DABMU)
+        CF=AMH(I)+0.5*(DIFF(I,J)+DIFF(I-1,J))*YMU(J)*YMU(J) &
+        +0.5*(DCY(I,J)+DCY(I-1,J))*GAMAMHB*(1.-YMU(J)*YMU(J))/(PMH*DABMU)
       ELSE
-      CF=AMH(I)+0.5*(DIFF(I,J)+DIFF(I-1,J))*YMU(J)*YMU(J)
+        CF=AMH(I)+0.5*(DIFF(I,J)+DIFF(I-1,J))*YMU(J)*YMU(J)
       ENDIF
       WW=DP*BF/CF
       DELM=1./WW-1./(DEXP(WW)-1.)
@@ -544,17 +544,17 @@
       CNTE=(DIFF(I,J)+XP(I)*0.5*(DIFF(I+1,J)-DIFF(I-1,J))/DP)/(2.*DMU)
       CNSTT=1.D0-RATIOB*(1.D0-YMU(J-1)*YMU(J-1))
       IF(CNSTT.GT.0.0.AND.CNSTT.LE.1.) THEN
-      CNSTT=DSQRT(CNSTT)
+          CNSTT=DSQRT(CNSTT)
       ELSE
-      CNSTT=0.
+          CNSTT=0.
       ENDIF
       DABM1=CNSTT
-!C    DABM1=DABS(YMU(J-1))
+      !C    DABM1=DABS(YMU(J-1))
       CNSTT=1.D0-RATIOB*(1.D0-YMU(J+1)*YMU(J+1))
       IF(CNSTT.GT.0.0.AND.CNSTT.LE.1.) THEN
-        CNSTT=DSQRT(CNSTT)
+          CNSTT=DSQRT(CNSTT)
       ELSE
-        CNSTT=0.
+          CNSTT=0.
       ENDIF
       DABP1=CNSTT
       DCYPH=(DCY(I+1,J)+DCY(I,J))
@@ -566,7 +566,7 @@
           DIFF(I-1,J))-0.5*DCYMH*(OMC+GAMAMHB*(YMU(J)*YMU(J)-1.))/(YMU(J)* &
           DABMU))/(4.*DP*DMU)
       ELSE
-           CNTCY1=-(1.-YMU(J)*YMU(J))*(-YMU(J)*PPH*0.5*(DIFF(I+1,J)+ &
+          CNTCY1=-(1.-YMU(J)*YMU(J))*(-YMU(J)*PPH*0.5*(DIFF(I+1,J)+ &
           DIFF(I,J)))-(1.-YMU(J)*YMU(J))*YMU(J)*PMH*0.5*(DIFF(I,J)+ &
           DIFF(I-1,J))
       ENDIF
@@ -579,52 +579,50 @@
       ELSE
           CNTY2=0.
       ENDIF
-      A(I,J)=-(1.-YMH*YMH)*DLAMM1* &
-      (FBI1*BI(I)/DMU+EPS1*XP(I)*DELJ1+CMH)/DMU &
-      +CNTCY1-CNTY2
-!CM     1+YMU(J)*(1.-YMU(J)*YMU(J))*CNTE+CNTCY1-CNTY2
-       IF(DYPH.NE.0..AND.DYMH.NE.0.)THEN
-           CY1=(1.-YPH*YPH)*DLAMP1*(-XP(I)*YPH*0.5*(DIFF(I,J+1)+DIFF(I,J)) &
+      A(I,J)=-(1.-YMH*YMH)*DLAMM1*(FBI1*BI(I)/DMU+EPS1*XP(I)*DELJ1+CMH)/DMU + CNTCY1-CNTY2
+      !CM     1+YMU(J)*(1.-YMU(J)*YMU(J))*CNTE+CNTCY1-CNTY2
+      IF(DYPH.NE.0..AND.DYMH.NE.0.)THEN
+          CY1=(1.-YPH*YPH)*DLAMP1*(-XP(I)*YPH*0.5*(DIFF(I,J+1)+DIFF(I,J)) &
           +.5*(DCY(I,J+1)+DCY(I,J))*(OMC+GAMAB*(YPH*YPH-1.))/(YPH*DYPH)) /(4.*DP*DMU) &
           +(1.-YMH*YMH)*DLAMM1*(XP(I)*YMH*0.5*(DIFF(I,J)+DIFF(I,J-1))-0.5* &
           (DCY(I,J)+DCY(I,J-1))*(OMC+GAMAB*(YMH*YMH-1.))/(YMH*DYMH))/(4.*DP*DMU)
-       ELSEIF (DYPH.EQ.0..AND.DYMH.NE.0.) THEN
+      ELSEIF (DYPH.EQ.0..AND.DYMH.NE.0.) THEN
            CY1=(1.-YPH*YPH)*DLAMP1*(-XP(I)*YPH*0.5*(DIFF(I,J+1)+DIFF(I,J))) &
-         /(4.*DP*DMU)+(1.-YMH*YMH)*DLAMM1*(XP(I)*YMH*0.5*(DIFF(I,J)+ &
-         DIFF(I,J-1))-0.5*(DCY(I,J)+DCY(I,J-1))*(OMC+GAMAB*(YMH*YMH-1.)) &
-          /(YMH*DYMH))/(4.*DP*DMU)
-       ELSEIF(DYPH.NE.0..AND.DYMH.EQ.0.)THEN
-               CY1=(1.-YPH*YPH)*DLAMP1*(-XP(I)*YPH*0.5*(DIFF(I,J+1)+DIFF(I,J)) &
-             +.5*(DCY(I,J+1)+DCY(I,J))*(OMC+GAMAB*(YPH*YPH-1.))/(YPH*DYPH)) &
-             /(4.*DP*DMU) &
-             +(1.-YMH*YMH)*DLAMM1*(XP(I)*YMH*0.5*(DIFF(I,J)+DIFF(I,J-1))) &
-             /(4.*DP*DMU)
-        ELSE
-           CY1=(1.-YPH*YPH)*DLAMP1*(-XP(I)*YPH*0.5*(DIFF(I,J+1)+DIFF(I,J))) &
-          /(4.*DP*DMU)+(1.-YMH*YMH)*DLAMM1*XP(I)*YMH*0.5*(DIFF(I,J)+ &
-          DIFF(I,J-1))/(4.*DP*DMU)
-        ENDIF
-      IF(DABMU.NE.0.) THEN
-      CY2=PMH*.5*DCYMH*GAMAMHB*(1.-YMU(J)*YMU(J))/(DABMU*DP*DP)
+           /(4.*DP*DMU)+(1.-YMH*YMH)*DLAMM1*(XP(I)*YMH*0.5*(DIFF(I,J)+ &
+           DIFF(I,J-1))-0.5*(DCY(I,J)+DCY(I,J-1))*(OMC+GAMAB*(YMH*YMH-1.)) &
+           /(YMH*DYMH))/(4.*DP*DMU)
+      ELSEIF(DYPH.NE.0..AND.DYMH.EQ.0.)THEN
+           CY1=(1.-YPH*YPH)*DLAMP1*(-XP(I)*YPH*0.5*(DIFF(I,J+1)+DIFF(I,J)) &
+           +.5*(DCY(I,J+1)+DCY(I,J))*(OMC+GAMAB*(YPH*YPH-1.))/(YPH*DYPH)) &
+           /(4.*DP*DMU) &
+           +(1.-YMH*YMH)*DLAMM1*(XP(I)*YMH*0.5*(DIFF(I,J)+DIFF(I,J-1))) &
+           /(4.*DP*DMU)
       ELSE
-      CY2=0.
-	ENDIF
+           CY1=(1.-YPH*YPH)*DLAMP1*(-XP(I)*YPH*0.5*(DIFF(I,J+1)+DIFF(I,J))) &
+           /(4.*DP*DMU)+(1.-YMH*YMH)*DLAMM1*XP(I)*YMH*0.5*(DIFF(I,J)+ &
+           DIFF(I,J-1))/(4.*DP*DMU)
+      ENDIF
+      IF(DABMU.NE.0.) THEN
+          CY2=PMH*.5*DCYMH*GAMAMHB*(1.-YMU(J)*YMU(J))/(DABMU*DP*DP)
+      ELSE
+          CY2=0.
+	  ENDIF
       B(I,J)=-PMH2*YMU(J)*EPS*DELM/DP-(DIFF(I,J)+DIFF(I-1,J))*YMU(J)*YMU(J) &
-     *PMH2/(2.*DP*DP)-(AMH(I)/DP-FMH(I)*DELM)*PMH2/DP-CY1-CY2
-!C    2*PMH2/(2.*DP*DP)-(AMH(I)/DP-FMH(I)*DELM)*PMH2/DP+CDIFF-CY1-CY2
+      *PMH2/(2.*DP*DP)-(AMH(I)/DP-FMH(I)*DELM)*PMH2/DP-CY1-CY2
+      !  2*PMH2/(2.*DP*DP)-(AMH(I)/DP-FMH(I)*DELM)*PMH2/DP+CDIFF-CY1-CY2
       CNTCC=+((DIFF(I+1,J)+DIFF(I,J))*PPH2+(DIFF(I,J) + DIFF(I-1,J))*PMH2)*YMU(J)*YMU(J)/(2.*DP*DP)
       CNTC=CNTCC-(1.-YPH*YPH)*DLAMP1*(-FBI2*BI(I)/DMU-EPS2*XP(I)*DELJ2-CPH)/DMU &
       +(1.-YMH*YMH)*DLAMM1*(FBI1*BI(I)/DMU-EPS1*XP(I)*(1.-DELJ1)+CMH)/DMU
       CYY=0.
       IF(DABMU.NE.0.) THEN
-          IF(DYMH.NE.0.AND.DYPH.NE.0.) then
+          if (DYMH.NE.0.AND.DYPH.NE.0.) then
                    CYY=PPH*.5*DCYPH*GAMAPHB*(1.-YMU(J)*YMU(J))/(DABMU*DP*DP) &
                    +PMH*.5*DCYMH*GAMAMHB*(1.-YMU(J)*YMU(J))/(DABMU*DP*DP) &
                    +(1.-YMH*YMH)*DLAMM1*0.5*(DCY(I,J-1)+DCY(I,J))* &
                   (YMH*GAMAB-(GAMAB-OMC)/YMH)**2/(GAMAB*XP(I)*DMU*DMU*DYMH) &
                   +(1.-YPH*YPH)*DLAMP1*0.5*(DCY(I,J+1)+DCY(I,J))* &
                   (YPH*GAMAB-(GAMAB-OMC)/YPH)**2/(GAMAB*XP(I)*DMU*DMU*DYPH)
-		       endif
+		  endif
       ELSE
         CYY=0.
       ENDIF
@@ -645,7 +643,7 @@
       CNTY22=0.
       ENDIF
       E(I,J)=-(1.-YPH*YPH)*DLAMP1*(FBI2*BI(I)/DMU-EPS2*XP(I)*(1.-DELJ2)+CPH)/DMU-CNTCY1-CNTY22
-!C    1/DMU-YMU(J)*(1.-YMU(J)*YMU(J))*CNTE-CNTCY1-CNTY22
+      !C    1/DMU-YMU(J)*(1.-YMU(J)*YMU(J))*CNTE-CNTCY1-CNTY22
       IF(DABMU.NE.0..AND.DYMH.NE.0.) THEN
         AM(I,J)=-(1.-YMU(J)*YMU(J))*(YMU(J)*PMH*0.5*(DIFF(I-1,J)+ &
         DIFF(I,J))-0.5*DCYMH*(OMC+GAMAMHB*(YMU(J)*YMU(J)-1.))/(YMU(J)* &
@@ -720,66 +718,66 @@
           /(4.*DP*DMU)+DLAMP1*(1.-YPH*YPH)*(-XP(I)*YPH*0.5*(DIFF(I,J)+ &
           DIFF(I,J+1)))/(4.*DP*DMU)
      ENDIF
-!Cmode 5 diagonales
-        IF(MODE.EQ.5) THEN
-!C           compute RF dependent (and time-independent if no FW) part
-!C            of matrix of coefficient Q /2/A.13
+     !Cmode 5 diagonales
+     IF(MODE.EQ.5) THEN
+     !C           compute RF dependent (and time-independent if no FW) part
+     !C            of matrix of coefficient Q /2/A.13
                 Q(I,J)=T(I,J)*XP(I)*XP(I)/DT &
                   -AM(I,J)*T(I-1,J-1)-AP(I,J)*T(I+1,J-1) &
                    -EP(I,J)*T(I+1,J+1)-EM(I,J)*T(i-1,J+1)
-        ENDIF
-!Cmode 9 diagonales
+     ENDIF
+     !Cmode 9 diagonales
 
-              IF (MODE.EQ.9) THEN
-!C            compute matrix of coefficient Q
+     IF (MODE.EQ.9) THEN
+     !C        compute matrix of coefficient Q
                 Q(I,J)=T(I,J)*XP(I)*XP(I)/DT
-         ENDIF
-!Cwhatever the choice, 5 or 9 points, the coefficients A,B,C,D,E,Q and
-!Cparts thereof have been computed
+     ENDIF
+     !Cwhatever the choice, 5 or 9 points, the coefficients A,B,C,D,E,Q and
+     !Cparts thereof have been computed
 
   4   CONTINUE
-      DO 444 I=1,N1
-      Q(I,1)=Q(I,3)
-	  Q(I,N2)=Q(I,N2-2)
-      A(I,1)=0.
-      E(I,N2)=0.
-      B(I,1)=B(I,3)
-      C(I,1)=C(I,3)
-      C(I,N2)=C(I,N2-2)
-      D(I,1)=D(I,3)
-      D(I,N2)=D(I,N2-2)
-      A(I,N2)=A(I,N2-2)
-      E(I,1)=E(I,3)
-!C9 diagonales
-      AM(I,1) = AM(I,3)
-      AP(I,1) = AP(I,3)
-      EM(I,1) = EM(I,3)
-      EP(I,1) = EP(I,3)
-      AM(I,N2) = AM(I,N2-2)
-      AP(I,N2) = AP(I,N2-2)
-      EM(I,N2) = EM(I,N2-2)
-      EP(I,N2) = EP(I,N2-2)
- 444  CONTINUE
-      DO 445 J=1,N2
-!Cla ligne suivante a ete ajoute pour la condition aux limites au centre
-      C(1,J)=1.
-      D(1,J)=-F(1)/F(2)
- 445  CONTINUE
-!C    IT=1
-!C    FOR LHCD ALONE (NO FAST WAVE), IF DIFF(I,J) AND EPS ARE CONSTANT
-!C    START LOOP HERE
+      do I=1,N1
+          Q(I,1)=Q(I,3)
+	      Q(I,N2)=Q(I,N2-2)
+          A(I,1)=0.
+          E(I,N2)=0.
+          B(I,1)=B(I,3)
+          C(I,1)=C(I,3)
+          C(I,N2)=C(I,N2-2)
+          D(I,1)=D(I,3)
+          D(I,N2)=D(I,N2-2)
+          A(I,N2)=A(I,N2-2)
+          E(I,1)=E(I,3)
+          !C9 diagonales
+          AM(I,1) = AM(I,3)
+          AP(I,1) = AP(I,3)
+          EM(I,1) = EM(I,3)
+          EP(I,1) = EP(I,3)
+          AM(I,N2) = AM(I,N2-2)
+          AP(I,N2) = AP(I,N2-2)
+          EM(I,N2) = EM(I,N2-2)
+          EP(I,N2) = EP(I,N2-2)
+      enddo
+      do J=1,N2
+          !la ligne suivante a ete ajoute pour la condition aux limites au centre
+          C(1,J)=1.
+          D(1,J)=-F(1)/F(2)
+      enddo
+      !   IT=1
+      !   FOR LHCD ALONE (NO FAST WAVE), IF DIFF(I,J) AND EPS ARE CONSTANT
+      !   START LOOP HERE
  30   CONTINUE
       DINT=0.
       DINT2=0.
-      DO 151 I=1,N1
-      DINT=0.
-      DO 150 J=2,N2M1
-      DINT=DINT+T(I,J)*YMU(J)
-      DINT2=DINT2+T(I,J)*(3.*YMU(J)*YMU(J)-1.)
- 150  CONTINUE
-      T2(I)=DINT2*DMU*5./4.
-      T1(I)=DINT*DMU*3./2.
- 151  CONTINUE
+      do I=1,N1
+          DINT=0.
+          do J=2,N2M1
+              DINT=DINT+T(I,J)*YMU(J)
+              DINT2=DINT2+T(I,J)*(3.*YMU(J)*YMU(J)-1.)
+          enddo
+          T2(I)=DINT2*DMU*5./4.
+          T1(I)=DINT*DMU*3./2.
+      enddo
       AB1(1)=0.
       AB2(1)=0.
       AB3(1)=0.
@@ -800,119 +798,119 @@
       AB8(2)=0.
       AB9(2)=0.
       AB10(2)=0.
-      DO 152 I=3,N1
-      XP2=XP(I)*XP(I)
-      GAMA=DSQRT(1.+XP2*BTH*BTH)
-      V=XP(I)/GAMA
-      GAMA1=DSQRT(1.+XP(I-1)*XP(I-1)*BTH*BTH)
-      V1=XP(I-1)/GAMA1
-      AB1(I)=AB1(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi
+      do I=3,N1
+          XP2=XP(I)*XP(I)
+          GAMA=DSQRT(1.+XP2*BTH*BTH)
+          V=XP(I)/GAMA
+          GAMA1=DSQRT(1.+XP(I-1)*XP(I-1)*BTH*BTH)
+          V1=XP(I-1)/GAMA1
+          AB1(I)=AB1(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi
 	  
-      AB2(I)=AB2(I-1)+0.5*DP*T1(I)*(XP(I)**5)*4.*pi/GAMA+0.5*DP*T1(I-1)*(XP(I-1)**5)*4.*pi/GAMA1
+          AB2(I)=AB2(I-1)+0.5*DP*T1(I)*(XP(I)**5)*4.*pi/GAMA+0.5*DP*T1(I-1)*(XP(I-1)**5)*4.*pi/GAMA1
 	  
-      AB3(I)=AB3(I-1)+0.5*DP*T1(I)*XP(I)*4.*pi*(GAMA-SIG(I)/(BTH*XP(I)))/GAMA &
-      +0.5*DP*T1(I-1)*XP(I-1)*4.*pi*(GAMA1-SIG(I-1)/(BTH*XP(I-1)))/GAMA1
-      AB4(I)=AB4(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi/GAMA+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi/GAMA1
+          AB3(I)=AB3(I-1)+0.5*DP*T1(I)*XP(I)*4.*pi*(GAMA-SIG(I)/(BTH*XP(I)))/GAMA &
+          +0.5*DP*T1(I-1)*XP(I-1)*4.*pi*(GAMA1-SIG(I-1)/(BTH*XP(I-1)))/GAMA1
+          AB4(I)=AB4(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi/GAMA+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi/GAMA1
 	  
-      AB5(I)=AB5(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi*(GAMA-SIG(I)/(BTH*XP(I))-2.*GAMA*BTH*BTH*XP(I)*XP(I)/3.) &
-      /(GAMA*BTH*BTH*XP(I)*XP(I))+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi*(GAMA1-SIG(I-1) &
-      /(BTH*XP(I-1))-2.*GAMA1*BTH*BTH*XP(I-1)*XP(I-1)/3.)/(GAMA1*BTH*BTH*XP(I-1)*XP(I-1))
+          AB5(I)=AB5(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi*(GAMA-SIG(I)/(BTH*XP(I))-2.*GAMA*BTH*BTH*XP(I)*XP(I)/3.) &
+          /(GAMA*BTH*BTH*XP(I)*XP(I))+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi*(GAMA1-SIG(I-1) &
+          /(BTH*XP(I-1))-2.*GAMA1*BTH*BTH*XP(I-1)*XP(I-1)/3.)/(GAMA1*BTH*BTH*XP(I-1)*XP(I-1))
 	  
-      AB6(I)=AB6(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi &
-      *(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I)) &
-      +BTH*XP(I))/(6.*GAMA*BTH*XP(I)) &
-      +0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi &
-      *(-3.*GAMA1*SIG(I-1)/(BTH*BTH*XP(I-1)*XP(I-1))+3./(BTH*XP(I-1))+BTH*XP(I-1))/(6.*GAMA1*BTH*XP(I-1))
+          AB6(I)=AB6(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi &
+          *(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I)) &
+          +BTH*XP(I))/(6.*GAMA*BTH*XP(I)) &
+          +0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi &
+          *(-3.*GAMA1*SIG(I-1)/(BTH*BTH*XP(I-1)*XP(I-1))+3./(BTH*XP(I-1))+BTH*XP(I-1))/(6.*GAMA1*BTH*XP(I-1))
 	  
-      AB8(I)=AB8(I-1)+.5*DP*T1(I)*4.*pi*(XP(I)**3)*(-3.*GAMA+SIG(I) &
-      *(3./(BTH*XP(I))+2.*BTH*XP(I)))/(2.*GAMA*BTH*BTH*XP(I)*XP(I)) &
-      +0.5*DP*T1(I-1)*4.*pi*(XP(I-1)**3)*(-3.*GAMA1+SIG(I-1)*(3./  &
-      (BTH*XP(I-1))+2.*BTH*XP(I-1)))/(2.*GAMA1*BTH*BTH*XP(I-1)*XP(I-1))
+          AB8(I)=AB8(I-1)+.5*DP*T1(I)*4.*pi*(XP(I)**3)*(-3.*GAMA+SIG(I) &
+          *(3./(BTH*XP(I))+2.*BTH*XP(I)))/(2.*GAMA*BTH*BTH*XP(I)*XP(I)) &
+          +0.5*DP*T1(I-1)*4.*pi*(XP(I-1)**3)*(-3.*GAMA1+SIG(I-1)*(3./  &
+          (BTH*XP(I-1))+2.*BTH*XP(I-1)))/(2.*GAMA1*BTH*BTH*XP(I-1)*XP(I-1))
 	  
-      AB7(I)=AB7(I-1)+.5*DP*T1(I)*4.*pi*(XP(I)**3)*(-3.*GAMA*SIG(I) &
-      /(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I)-2.*(BTH*XP(I))**3/5.)/(2.*GAMA*BTH*BTH*BTH*XP(I)) &
-      +.5*DP*T1(I-1)*4.*pi*(XP(I-1)**3)*(-3.*GAMA1*SIG(I-1) &
-      /(BTH*BTH*XP(I-1)*XP(I-1))+3./(BTH*XP(I-1))+BTH*XP(I-1)-2.*(BTH*XP(I-1))**3/5.)/(2.*GAMA1*BTH*BTH*BTH*XP(I-1))
+          AB7(I)=AB7(I-1)+.5*DP*T1(I)*4.*pi*(XP(I)**3)*(-3.*GAMA*SIG(I) &
+          /(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I)-2.*(BTH*XP(I))**3/5.)/(2.*GAMA*BTH*BTH*BTH*XP(I)) &
+          +.5*DP*T1(I-1)*4.*pi*(XP(I-1)**3)*(-3.*GAMA1*SIG(I-1) &
+          /(BTH*BTH*XP(I-1)*XP(I-1))+3./(BTH*XP(I-1))+BTH*XP(I-1)-2.*(BTH*XP(I-1))**3/5.)/(2.*GAMA1*BTH*BTH*BTH*XP(I-1))
 	  
-      AB9(I)=AB9(I-1)+0.5*DP*T1(I)*XP(I)*4.*pi*(GAMA*SIG(I)/(BTH*XP(I))-1.)/GAMA &
-      +0.5*DP*T1(I-1)*XP(I-1)*4.*pi*(GAMA1*SIG(I-1)/(BTH*XP(I-1))-1.)/GAMA1
+          AB9(I)=AB9(I-1)+0.5*DP*T1(I)*XP(I)*4.*pi*(GAMA*SIG(I)/(BTH*XP(I))-1.)/GAMA &
+          +0.5*DP*T1(I-1)*XP(I-1)*4.*pi*(GAMA1*SIG(I-1)/(BTH*XP(I-1))-1.)/GAMA1
 	  
-      AB10(I)=AB10(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi*(GAMA*SIG(I) &
-      *(15./(BTH*XP(I))**2+6.)-15./(BTH*XP(I))-11.*BTH*XP(I))/ &
-      (12.*GAMA*BTH*BTH*BTH*XP(I))+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi*(GAMA1*SIG(I-1) &
-      *(15./(BTH*XP(I-1))**2+6.)-15./(BTH*XP(I-1))-11.*BTH*XP(I-1))/ &
-      (12.*GAMA1*BTH*BTH*BTH*XP(I-1))
- 152  CONTINUE
+          AB10(I)=AB10(I-1)+0.5*DP*T1(I)*(XP(I)**3)*4.*pi*(GAMA*SIG(I) &
+          *(15./(BTH*XP(I))**2+6.)-15./(BTH*XP(I))-11.*BTH*XP(I))/ &
+          (12.*GAMA*BTH*BTH*BTH*XP(I))+0.5*DP*T1(I-1)*(XP(I-1)**3)*4.*pi*(GAMA1*SIG(I-1) &
+          *(15./(BTH*XP(I-1))**2+6.)-15./(BTH*XP(I-1))-11.*BTH*XP(I-1))/ &
+          (12.*GAMA1*BTH*BTH*BTH*XP(I-1))
+      enddo
       AB11(N1)=0.
       AB12(N1)=0.
       AB13(N1)=0.
       AB14(N1)=0.
-      DO 155 I=1,N1M1
-      K=N1-I
-      XP2=XP(K)*XP(K)
-      GAMA=DSQRT(1.+XP2*BTH*BTH)
-      GAMA1=DSQRT(1.+XP(K+1)*XP(K+1)*BTH*BTH)
-      AB11(K)=AB11(K+1)+0.5*DP*T1(K)*4.*pi/GAMA+0.5*DP*T1(K+1)*4.*pi/GAMA1
+      do I=1,N1M1
+          K=N1-I
+          XP2=XP(K)*XP(K)
+          GAMA=DSQRT(1.+XP2*BTH*BTH)
+          GAMA1=DSQRT(1.+XP(K+1)*XP(K+1)*BTH*BTH)
+          AB11(K)=AB11(K+1)+0.5*DP*T1(K)*4.*pi/GAMA+0.5*DP*T1(K+1)*4.*pi/GAMA1
 	  
-      AB12(K)=AB12(K+1)+0.5*DP*T1(K)*4.*pi+0.5*DP*T1(K+1)*4.*pi
+          AB12(K)=AB12(K+1)+0.5*DP*T1(K)*4.*pi+0.5*DP*T1(K+1)*4.*pi
 	  
-      AB13(K)=AB13(K+1)+0.5*DP*T1(K)*(XP(K)**2)*4.*pi+0.5*DP*T1(K+1)*(XP(K+1)**2)*4.*pi
+          AB13(K)=AB13(K+1)+0.5*DP*T1(K)*(XP(K)**2)*4.*pi+0.5*DP*T1(K+1)*(XP(K+1)**2)*4.*pi
 	  
-      AB14(K)=AB14(K+1)+0.5*DP*T1(K)*(XP(K)**2)*4.*pi/GAMA+.5*DP*T1(K+1)*(XP(K+1)**2)*4.*pi/GAMA1
- 155  CONTINUE
-      DO 502 I=2,N1M1
-      DO 502 J=2,N2M1
-!Cmode 5 diagonales
+          AB14(K)=AB14(K+1)+0.5*DP*T1(K)*(XP(K)**2)*4.*pi/GAMA+.5*DP*T1(K+1)*(XP(K+1)**2)*4.*pi/GAMA1
+      enddo
+      do I=2,N1M1
+        do J=2,N2M1
+            !Cmode 5 diagonales
             IF(MODE.EQ.5) THEN
                 Q(I,J)=T(I,J)*XP(I)*XP(I)/DT &
-                   -AM(I,J)*T(I-1,J-1)-AP(I,J)*T(I+1,J-1) &
+                -AM(I,J)*T(I-1,J-1)-AP(I,J)*T(I+1,J-1) &
                     -EP(I,J)*T(I+1,J+1)-EM(I,J)*T(i-1,J+1)
             ENDIF
-!Cmode 9 diagonales
+            !Cmode 9 diagonales
             IF (MODE.EQ.9) THEN
                 Q(I,J)=T(I,J)*XP(I)*XP(I)/DT
             ENDIF
-!C
-
- 502  CONTINUE
-      DO 503 I=2,N1M1
-      GAMA=DSQRT(1.D0+XP(I)*XP(I)*BTH*BTH)
-      V=XP(I)/GAMA
-	  CNT=-2.*AB1(I)*GAMA/3.+AB2(I)*GAMA/5.+AB3(I)+AB4(I)/3. &
-      +(-AB5(I)+AB7(I)+AB8(I)-AB10(I))*GAMA
-      CNT=CNT+AB6(I)*(GAMA*XP(I)*XP(I)-5.)+AB9(I)*XP(I)*XP(I)
-      CNT=CNT/(GAMA*XP(I)*XP(I))
-      CNT1=+AB11(I)*(1./3.+(GAMA-SIG(I)/(BTH*XP(I)))/(XP(I)*XP(I)) &
-      -5.*(-3.*GAMA*SIG(I) &
-      /(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I))/(6.*BTH*XP(I))) 
-      CNT1=CNT1+AB12(I)*(-2.*GAMA/3.+XP(I)*XP(I)/5.-(GAMA-SIG(I) &
-      /(BTH*XP(I))-2.*GAMA*BTH*BTH*XP(I)*XP(I)/3.)/(BTH*BTH*XP(I) &
-      *XP(I)))
-      CNT1=CNT1+AB12(I)*(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3. &
-      /(BTH*XP(I))+BTH*XP(I)-2.*(BTH*XP(I))**3/5.)/(2.*BTH*BTH*BTH*XP(I))
-      CNT1=CNT1+AB12(I)*(-3.*GAMA+SIG(I)*(3./(BTH*XP(I))+2.*BTH*XP(I)))/(2.*BTH*BTH*XP(I)*XP(I))
-      CNT1=CNT1-AB12(I)*(GAMA*SIG(I)*(15./(BTH*BTH*XP(I)*XP(I))+6.)-15./(BTH*XP(I))-11.*BTH*XP(I))/(12.*BTH*XP(I)*BTH*BTH)
-      CNT1=CNT1+AB13(I)*(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I))/(6.*BTH*XP(I))
-      CNT1=CNT1+AB14(I)*(GAMA*SIG(I)/(BTH*XP(I))-1.)/(XP(I)*XP(I))
-      CNT1=CNT1*XP(I)/GAMA
-      CNT=(CNT*F(I)+CNT1*F(I))+4.*pi*F(I)*T1(I)/GAMA
-      CNT=CNT*XP(I)*XP(I)
-      DO 503 J=2,N2M1
-      Q(I,J)=Q(I,J)+EJ0(J)*CNT*YMU(J)*TRUNC
- 503  CONTINUE
-      DO 513 I=1,N1
-      Q(I,1)=Q(I,3)
-      Q(I,N2)=Q(I,N2-2)
-!C9 diagonales
-      AM(I,1) = AM(I,3)
-      AP(I,1) = AP(I,3)
-      EM(I,1) = EM(I,3)
-      EP(I,1) = EP(I,3)
-      AM(I,N2) = AM(I,N2-2)
-      AP(I,N2) = AP(I,N2-2)
-      EM(I,N2) = EM(I,N2-2)
-      EP(I,N2) = EP(I,N2-2)
- 513  CONTINUE
+        enddo
+      enddo
+      do I=2,N1M1
+          GAMA=DSQRT(1.D0+XP(I)*XP(I)*BTH*BTH)
+          V=XP(I)/GAMA
+	      CNT=-2.*AB1(I)*GAMA/3.+AB2(I)*GAMA/5.+AB3(I)+AB4(I)/3. &
+          +(-AB5(I)+AB7(I)+AB8(I)-AB10(I))*GAMA
+          CNT=CNT+AB6(I)*(GAMA*XP(I)*XP(I)-5.)+AB9(I)*XP(I)*XP(I)
+          CNT=CNT/(GAMA*XP(I)*XP(I))
+          CNT1=+AB11(I)*(1./3.+(GAMA-SIG(I)/(BTH*XP(I)))/(XP(I)*XP(I)) &
+          -5.*(-3.*GAMA*SIG(I) &
+          /(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I))/(6.*BTH*XP(I))) 
+          CNT1=CNT1+AB12(I)*(-2.*GAMA/3.+XP(I)*XP(I)/5.-(GAMA-SIG(I) &
+          /(BTH*XP(I))-2.*GAMA*BTH*BTH*XP(I)*XP(I)/3.)/(BTH*BTH*XP(I) &
+          *XP(I)))
+          CNT1=CNT1+AB12(I)*(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3. &
+          /(BTH*XP(I))+BTH*XP(I)-2.*(BTH*XP(I))**3/5.)/(2.*BTH*BTH*BTH*XP(I))
+          CNT1=CNT1+AB12(I)*(-3.*GAMA+SIG(I)*(3./(BTH*XP(I))+2.*BTH*XP(I)))/(2.*BTH*BTH*XP(I)*XP(I))
+          CNT1=CNT1-AB12(I)*(GAMA*SIG(I)*(15./(BTH*BTH*XP(I)*XP(I))+6.)-15./(BTH*XP(I))-11.*BTH*XP(I))/(12.*BTH*XP(I)*BTH*BTH)
+          CNT1=CNT1+AB13(I)*(-3.*GAMA*SIG(I)/(BTH*BTH*XP(I)*XP(I))+3./(BTH*XP(I))+BTH*XP(I))/(6.*BTH*XP(I))
+          CNT1=CNT1+AB14(I)*(GAMA*SIG(I)/(BTH*XP(I))-1.)/(XP(I)*XP(I))
+          CNT1=CNT1*XP(I)/GAMA
+          CNT=(CNT*F(I)+CNT1*F(I))+4.*pi*F(I)*T1(I)/GAMA
+          CNT=CNT*XP(I)*XP(I)
+          do J=2,N2M1
+            Q(I,J)=Q(I,J)+EJ0(J)*CNT*YMU(J)*TRUNC
+          enddo
+      enddo
+      do I=1,N1
+          Q(I,1)=Q(I,3)
+          Q(I,N2)=Q(I,N2-2)
+          !C9 diagonales
+          AM(I,1) = AM(I,3)
+          AP(I,1) = AP(I,3)
+          EM(I,1) = EM(I,3)
+          EP(I,1) = EP(I,3)
+          AM(I,N2) = AM(I,N2-2)
+          AP(I,N2) = AP(I,N2-2)
+          EM(I,N2) = EM(I,N2-2)
+          EP(I,N2) = EP(I,N2-2)
+      enddo
       IF(TRAPO.EQ.0.0D0) GO TO 1701
       N2H=N2/2
       DO I=1,N1
