@@ -1,5 +1,11 @@
 module MKL_helper
-
+    use, intrinsic :: iso_fortran_env,    only: real32,real64,real128
+    
+    implicit none
+   
+    !integer,parameter,public :: wp = real32     !! single precision reals
+    integer,parameter,public :: DPT = real64  
+    
     contains
     
     function matmul_MKL(a,b) result(c)
