@@ -41,31 +41,27 @@
             
         end function calc_error
         
-        function mkl_mat_inv_test(n) result(err)
+        function mkl_mat_inv_test(mat) result(err)
             implicit none
-            integer n
             real(DPT) err
-            complex(DPT), dimension(n,n) :: a, b, c
-            
-            call random_complex(a)
-            b = a
+            complex(DPT),dimension(:,:) :: mat
+            complex(DPT),dimension(size(mat,1), size(mat,1)) :: b, c
+            b = mat
             call inverse_matrix_mkl(b)
             call inverse_matrix_mkl(b)
-            c = a - b
+            c = mat - b
             err = calc_error(c)
         end function mkl_mat_inv_test
     
-        function mat_inv_test(n) result(err)
+        function mat_inv_test(mat) result(err)
             implicit none
-            integer n
             real(DPT) err
-            complex(DPT),allocatable,  dimension(:,:) :: a, b, c
-            allocate(a(n,n), b(n,n), c(n,n))
-            call random_complex(a)
-            b = a
+            complex(DPT),dimension(:,:) :: mat
+            complex(DPT),dimension(size(mat,1),size(mat,1)) :: b, c
+            b = mat
             call MatInv(b)
             call MatInv(b)
-            c = a - b
+            c = mat - b
             err = calc_error(c)
         end function mat_inv_test
         
@@ -78,18 +74,23 @@
     integer n
     real(DPT) mkl_err, MatInt_err
     real MatInv_time, mkl_time, time0
+    complex(DPT),allocatable,  dimension(:,:) :: mat
+
     ! Body of MatrixInversionTest
     print *, 'Matrix Inversion Test'
     print *, "         n  ", "        mkl error", "        MatInv error"
     do n = 500, 5000, 500
+        allocate(mat(n,n))
+        call random_complex(mat)
         time0 = sys_time()
-        mkl_err    = mkl_mat_inv_test(n)
+        mkl_err    = mkl_mat_inv_test(mat)
         mkl_time = sys_time() - time0
         time0 = sys_time()
-        MatInt_err = mat_inv_test(n)
+        MatInt_err = mat_inv_test(mat)
         MatInv_time = sys_time() - time0
         print *, n, mkl_err, MatInt_err
         print *, '  time=   ', mkl_time, MatInv_time, MatInv_time/mkl_time
+        deallocate(mat)
     end do
     
     pause
