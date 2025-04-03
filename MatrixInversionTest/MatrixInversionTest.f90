@@ -77,14 +77,19 @@
     implicit none
     integer n
     real(DPT) mkl_err, MatInt_err
-
+    real MatInv_time, mkl_time, time0
     ! Body of MatrixInversionTest
-    print *, 'Hello World'
+    print *, 'Matrix Inversion Test'
     print *, "         n  ", "        mkl error", "        MatInv error"
     do n = 500, 5000, 500
+        time0 = sys_time()
         mkl_err    = mkl_mat_inv_test(n)
+        mkl_time = sys_time() - time0
+        time0 = sys_time()
         MatInt_err = mat_inv_test(n)
+        MatInv_time = sys_time() - time0
         print *, n, mkl_err, MatInt_err
+        print *, '  time=   ', mkl_time, MatInv_time, MatInv_time/mkl_time
     end do
     
     pause

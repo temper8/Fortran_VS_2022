@@ -17,6 +17,15 @@ module MKL_helper
     
     contains
     
+    function sys_time()
+       implicit none
+       real(8) sys_time
+       integer count, count_rate, count_max
+       call system_clock(count, count_rate, count_max)
+       sys_time = count*1.0/count_rate
+       return
+    end   
+    
     function matmul_MKL(a,b) result(c)
         integer n
 	    complex(DPT),  intent(IN)  :: a(:,:), b(:,:)
