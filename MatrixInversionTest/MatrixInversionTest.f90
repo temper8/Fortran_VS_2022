@@ -89,7 +89,7 @@
         MatInt_err = mat_inv_test(mat)
         MatInv_time = sys_time() - time0
         print *, n, mkl_err, MatInt_err
-        print *, '  time=   ', mkl_time, MatInv_time, MatInv_time/mkl_time
+        print *, '  time=   ', mkl_time,  MatInv_time, 'Ratio= ', MatInv_time/mkl_time
         deallocate(mat)
     end do
     
