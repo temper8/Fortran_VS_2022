@@ -55,6 +55,20 @@
             err = calc_error(c)
         end function mkl_mat_inv_test
     
+        function mat_inv_test(n) result(err)
+            implicit none
+            integer n
+            real(DPT) err
+            complex(DPT),allocatable,  dimension(:,:) :: a, b, c
+            allocate(a(n,n), b(n,n), c(n,n))
+            call random_complex(a)
+            b = a
+            call MatInv(b)
+            call MatInv(b)
+            c = a - b
+            err = calc_error(c)
+        end function mat_inv_test
+        
     end module test
     
     program MatrixInversionTest
@@ -62,14 +76,15 @@
     use test
     implicit none
     integer n
-    real(DPT) mkl_err
+    real(DPT) mkl_err, MatInt_err
 
     ! Body of MatrixInversionTest
     print *, 'Hello World'
-    print *, "      n  ", "        mkl error"
+    print *, "         n  ", "        mkl error", "        MatInv error"
     do n = 500, 5000, 500
-        mkl_err = mkl_mat_inv_test(n)
-        print *, n, mkl_err
+        mkl_err    = mkl_mat_inv_test(n)
+        MatInt_err = mat_inv_test(n)
+        print *, n, mkl_err, MatInt_err
     end do
     
     pause
