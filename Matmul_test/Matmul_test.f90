@@ -16,9 +16,10 @@
     use time_module
     use matmul_module
     implicit none
-     integer nn, i, istat
+     integer nn, i, istat, si
+     integer, parameter :: n_max = 1
      character(len=70) errmes_string
-     real(8), allocatable, dimension(:,:) :: a, b, c
+     real(8), allocatable, dimension(:,:) :: a, b, c, z
      real   :: all_time1, all_time2
      real   :: s_time
      real   :: time21, time22
@@ -34,7 +35,7 @@
      print *, "         n", "         no-parallel", "     parallel  ",  "       MKL     ",  "     MatMul"
      
      do nn = 500, 1500, 100
-         allocate(a(nn,nn), b(nn,nn),c(nn,nn), stat=istat, errmsg=errmes_string )
+         allocate(a(nn,nn), b(nn,nn),c(nn,nn),z(nn,nn), stat=istat, errmsg=errmes_string )
          if ( istat /= 0 ) then
             write ( *,* )  errmes_string,' : istat =',istat
          endif
@@ -49,9 +50,10 @@
 
          s_time = sys_time()
          call cpu_time(cpu_t1) 
-         do i = 1,10
+         do i = 1, n_max
             !c = MatMul(a,b)
             call matmul_no_parallel(a,b,c,nn)
+            z = z + c
             !call matmul_MKL(a,b,c,nn)
          enddo
 
@@ -62,8 +64,9 @@
 
          s_time = sys_time()
          call cpu_time(cpu_t1) 
-         do i = 1,10
+         do i = 1, n_max
             call matmul_parallel(a,b,c,nn)
+            z = z + c
          enddo
          call cpu_time(cpu_t2)
          sys_dt(3) = sys_time() - s_time
@@ -71,9 +74,10 @@
          !print *, sum(c)
          s_time = sys_time()
          call cpu_time(cpu_t1) 
-         do i = 1,10
-            !c = matmul_MKL_f(a,b)
-            call matmul_MKL(a,b,c)
+         do i = 1, n_max
+            c = matmul_MKL_f(a,b)
+            !call matmul_MKL(a,b,c)
+            z = z + c
             !call matmul_MKL(a,b,c, nn)
          enddo
          call cpu_time(cpu_t2)
@@ -82,9 +86,10 @@
 
          s_time = sys_time()
          call cpu_time(cpu_t1) 
-         do i = 1,10
+         do i = 1, n_max
             c = MatMul(a,b)
-         enddo
+            z = z + c
+         enddo 
          call cpu_time(cpu_t2)
          sys_dt(5) = sys_time() - s_time
          cpu_dt(5) = cpu_t2 - cpu_t1         
@@ -92,7 +97,7 @@
          print *, nn, "---------------"
          print *, ' cpu time   ', cpu_dt(2:5)
          print *, ' sys time   ', sys_dt(2:5)
-         deallocate(a, b, c)
+         deallocate(a, b, c, z)
      end do
      all_time2 = sys_time()
      print *,"all time =", all_time2 - all_time1
